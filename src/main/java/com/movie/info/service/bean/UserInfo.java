@@ -11,13 +11,23 @@ public class UserInfo {
     @Id
     private String user;
     private String password;
+    private String roles;
 
     public UserInfo() {
     }
 
-    public UserInfo(String user, String password) {
+    public UserInfo(String user, String password, String roles) {
         this.user = user;
         this.password = password;
+        this.roles = roles;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public String getUser() {
