@@ -3,6 +3,10 @@ spring:
     name: movie-info-service
   jpa.hibernate.ddl-auto: none
   datasource:
-    url: jdbc:mysql://localhost/movie_rest_service
-    username: root
-    password: Mysql@123
+    url: jdbc:mysql://localhost:3306/movie_rest_service
+    username: user1
+    password: Mysql123
+
+
+
+
