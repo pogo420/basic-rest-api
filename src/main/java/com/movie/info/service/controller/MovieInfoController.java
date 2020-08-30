@@ -1,14 +1,20 @@
 package com.movie.info.service.controller;
 
+import com.movie.info.service.bean.AuthenticationRequest;
+import com.movie.info.service.bean.AuthenticationResponse;
 import com.movie.info.service.bean.MovieInfo;
 import com.movie.info.service.dao.MovieRepository;
+import com.movie.info.service.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.Optional;
 
 
@@ -19,9 +25,35 @@ public class MovieInfoController {
     @Autowired
     private MovieRepository moveInfo;
 
-    @GetMapping("/test")
-    public ResponseEntity<String> test() {
-        return new ResponseEntity<String>("Test movie info..", HttpStatus.OK);
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private JwtUtil jwtUtil;
+
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public ResponseEntity<AuthenticationResponse> authenticateTokenCreate(
+            @RequestBody AuthenticationRequest authenticationRequest) throws Exception{
+
+        try { // userid/password validation
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            authenticationRequest.getUsername(),
+                            authenticationRequest.getPassword()
+                    )
+            );
+        }
+        catch (BadCredentialsException e){
+              throw new Exception("Incorrect Username/Password", e);
+        }
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+        final String jwt = jwtUtil.generateToken(userDetails);
+
+        return  new ResponseEntity<AuthenticationResponse>(
+                new AuthenticationResponse(jwt), HttpStatus.OK);
     }
 
     @GetMapping("/all")
