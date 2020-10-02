@@ -2,7 +2,7 @@
 Implementing a basic rest API in spring boot
 
 
-
+### Execution steps
 - Getting jwt token with user validation:
 
     POST /movie/info/authenticate HTTP/1.1
@@ -13,12 +13,11 @@ Implementing a basic rest API in spring boot
     
     cache-control: no-cache
     
-    Postman-Token: 9bd0efa0-678d-451b-a849-ebe03d63eb85
-    
+    body:
     {
     "username": "arnab",
     "password": "passwd1"
-    }------WebKitFormBoundary7MA4YWxkTrZu0gW--
+    }
 
 - Using jwt token for requests:
 
@@ -28,8 +27,18 @@ Implementing a basic rest API in spring boot
     
     Content-Type: application/json
     
-    Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhcm5hYiIsImV4cCI6MTU5ODgzNTc1OCwiaWF0IjoxNTk4Nzk5NzU4fQ.da5istNdKuJKskccK3Dc7HuX1oEMWcVjDETPOmupFoU
+    Authorization: Bearer <jwt_token>
     
     cache-control: no-cache
     
-    Postman-Token: ff0954c3-93cf-4fcf-b851-5493e34b55f3
+
+### Using docker containers
+
+- Create MySql image
+`docker build -t project/mysql ./MysqlInfra/Dockerfile`
+- Create Spring App image
+`docker build -t project/basic-rest-api .`
+- Run Mysql image
+`docker run --name mysqldb -d -p 3307:3307 -e MYSQL_ROOT_PASSWORD=Mysql123 -e MYSQL_DATABASE=movie_rest_service -e MYSQL_USER=user1 -e MYSQL_PASSWORD=Mysql123 project/mysql`
+- Run Spring App image
+`docker run -t --link mysqldb:mysql -p 8080:8080 project/basic-rest-api`
