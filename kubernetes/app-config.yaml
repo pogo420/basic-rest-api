@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: basic-rest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: basic-rest
+  template:
+    metadata:
+      labels:
+        app: basic-rest
+    spec:
+      containers:
+        - name: basic-rest
+          image: basic_rest_app
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8880
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: basic-rest-service
+spec:
+  selector:
+    app: basic-rest
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
