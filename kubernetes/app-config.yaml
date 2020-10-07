@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: basic-rest
-          image: basic_rest_app
+          image: am0072008/rest-java-spring:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8880
