@@ -4,8 +4,8 @@ spring:
   jpa.hibernate.ddl-auto: none
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:3306/movie_rest_service?autoReconnect=true&failOverReadOnly=false&maxReconnects=10
-    username: user1
-    password: Mysql123
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
 
 
 

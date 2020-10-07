@@ -25,6 +25,16 @@ spec:
                 configMapKeyRef:
                   name: global-config
                   key: mysql-host
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: basic-rest-secret
+                  key: mysql-user-id
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: basic-rest-secret
+                  key: mysql-user-pass
 
 ---
 
