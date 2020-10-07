@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: global-config
 data:
-  mysql-host: localhost
+  mysql-host: mysql-service
   mysql-database: movie_rest_service

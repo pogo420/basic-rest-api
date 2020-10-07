@@ -50,10 +50,8 @@ Implementing a basic rest API in spring boot
 - Assuming minikube is installed.
 - Start minikube `minikube start`
 - Creating Secret `kubectl apply -f ./kubernetes/app-secret.yaml`
-- Creating Mysql deployment and service(internal) `kubectl apply -f ./kubernetes/mysql-config.yaml`
-- Check internal ip of mysql service by `kubectl get service`
-- Update the ip in `mysql-host` of `./kubernetes/global-config.yaml` 
 - Creating ConfigMap `kubectl apply -f ./kubernetes/global-config.yaml`
+- Creating Mysql deployment and service(internal) `kubectl apply -f ./kubernetes/mysql-config.yaml`
 - Creating Spring App deployment and service(external) `kubectl apply -f ./kubernetes/app-config.yaml`
 - Check pod status by `kubectl get pods`
 - We can check logs by `kubectl logs pod_name`
