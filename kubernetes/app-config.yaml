@@ -17,9 +17,14 @@ spec:
       containers:
         - name: basic-rest
           image: am0072008/rest-java-spring:latest
-          imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8880
+            - containerPort: 8080
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: global-config
+                  key: mysql-host
 
 ---
 
