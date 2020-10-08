@@ -25,7 +25,7 @@ jobs:
         run: mvn -B package -DskipTests --file pom.xml
 
       - name: Docker login
-        run: docker login -u docker_username -p docker_password
+        run: docker login -u $docker_username -p $docker_password
 
       - name: Build mysql image
         run: docker build -t am0072008/mysql-db:$version ./MysqlInfra
