@@ -20,7 +20,7 @@ jobs:
         env:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-        run: docker login -u username -p password
+        run: docker login -u $username -p $password
       - name: Build mysql image
         run: docker build -t am0072008/mysql-db ./MysqlInfra
       - name: Build spring app image
