@@ -16,3 +16,16 @@ jobs:
           java-version: 1.8
       - name: Build with Maven
         run: mvn -B package -DskipTests --file pom.xml
+      - name: Docker login
+        env:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u username -p password
+      - name: Build mysql image
+        run: docker build -t am0072008/mysql-db ./MysqlInfra
+      - name: Build spring app image
+        run: docker build -t am0072008/rest-java-spring ./MysqlInfra
+      - name: Pushing mysql image
+        run: docker push am0072008/mysql-db
+      - name: Pushing spring app image
+        run: docker push am0072008/rest-java-spring
