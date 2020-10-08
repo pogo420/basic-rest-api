@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      version: 1.1
     steps:
       - name: checkout
         uses: actions/checkout@v2
@@ -22,10 +24,10 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
         run: docker login -u $username -p $password
       - name: Build mysql image
-        run: docker build -t am0072008/mysql-db:$GITHUB_RUN_NUMBER ./MysqlInfra
+        run: docker build -t am0072008/mysql-db:$version ./MysqlInfra
       - name: Build spring app image
-        run: docker build -t am0072008/rest-java-spring:$GITHUB_RUN_NUMBER .
+        run: docker build -t am0072008/rest-java-spring:$version .
       - name: Pushing mysql image
-        run: docker push am0072008/mysql-db:$GITHUB_RUN_NUMBER
+        run: docker push am0072008/mysql-db:$version
       - name: Pushing spring app image
-        run: docker push am0072008/rest-java-spring:$GITHUB_RUN_NUMBER
+        run: docker push am0072008/rest-java-spring:$version
