@@ -65,4 +65,9 @@ public class MovieInfoController {
         return new ResponseEntity<Optional<MovieInfo>>(moveInfo.findById(movieId), HttpStatus.OK);
     }
 
+    @GetMapping("/test")
+    public ResponseEntity<Optional<String>> getTest() {
+        return new ResponseEntity<Optional<String>>(Optional.of("Test"), HttpStatus.OK);
+    }
+
 }

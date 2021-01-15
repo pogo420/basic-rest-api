@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: basic-rest
-          image: am0072008/rest-java-spring:latest
+          image: am0072008/rest-java-spring:1.3
           ports:
             - containerPort: 8080
           env:
